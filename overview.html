@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Overview | Sanjay Agencies</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        /* HEADER BAR */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        /* SECTION TITLE */
+        h2 {
+            margin-top: 30px;
+        }
+
+        /* PAGE CARDS */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            width: 300px;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .card button {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .card button:hover {
+            background: #1d6fa5;
+        }
+
+        /* DIAGRAM BOX */
+        .diagram-box {
+            background: white;
+            width: 85%;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            font-size: 18px;
+        }
+
+        pre {
+            text-align: left;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">Website Overview – Sanjay Agencies</div>
+
+<h2>Main Pages</h2>
+
+<!-- MAIN PAGES -->
+<div class="card-container">
+
+    <div class="card">
+        <h3>Home Page</h3>
+        <p>Slideshow, shop categories, and navigation.</p>
+        <button onclick="location.href='index.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>CK Gamers Zone</h3>
+        <p>Shows game category products (dynamic from database).</p>
+        <button onclick="location.href='ckgamerszone.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>Milk Shop</h3>
+        <p>Shows milk category products (dynamic from database).</p>
+        <button onclick="location.href='sanjayagencies.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>Contact Page</h3>
+        <p>Shop location, phone number, and email.</p>
+        <button onclick="location.href='contact.html'">Open</button>
+    </div>
+
+</div>
+
+<h2>Admin Panel</h2>
+
+<!-- ADMIN PAGES -->
+<div class="card-container">
+    <div class="card">
+        <h3>Admin Login</h3>
+        <p>Admin authentication using JWT.</p>
+        <button onclick="location.href='admin-login.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>Product Dashboard</h3>
+        <p>Add, edit, delete products. Secure with JWT.</p>
+        <button onclick="location.href='admin-products.html'">Open</button>
+    </div>
+</div>
+
+<h2>Full Website Flow Diagram</h2>
+
+<div class="diagram-box">
+    <pre>
+User → Home Page → Choose Shop
+         ↓
+    CK Gamers Zone ←→ Backend (Node.js) ←→ MongoDB
+         ↓
+     Milk Shop      ←→ Backend (Express) ←→ Products Collection
+
+Admin → Login → JWT Token → Admin Dashboard
+         ↓
+ Add/Edit/Delete Products → Updates both shops live
+    </pre>
+</div>
+
+<div class="footer">
+    © 2025 Sanjay Agencies — Website Overview
+</div>
+
+</body>
+</html>

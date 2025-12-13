@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CK Gamers Zone</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        .product {
+            background: white;
+            width: 250px;
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        img {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">Sanjay Agencies</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="sanjayagencies.html">Milk Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+
+    <h2>Available Games</h2>
+
+    <!-- DYNAMIC GAME PRODUCTS -->
+    <div id="productBox"></div>
+
+    <footer class="footer">
+        <h3>CK Gamers Zone</h3>
+        <p>Kumbakonam Main Road, Pandanallur</p>
+        <p>Phone: 9965073322</p>
+        <p>Email: chandru1976in@gmail.com</p>
+        <p class="copy">© 2025 Sanjay Agencies</p>
+    </footer>
+
+<script>
+async function loadGameProducts() {
+    const res = await fetch("http://localhost:5000/products");
+    const data = await res.json();
+
+    let html = "";
+
+    data.filter(p => p.category === "game").forEach(item => {
+        html += `
+        <div class="product">
+            <img src="${item.image}">
+            <h3>${item.name}</h3>
+            <p>₹${item.price}</p>
+        </div>
+        `;
+    });
+
+    document.getElementById("productBox").innerHTML = html;
+}
+
+loadGameProducts();
+</script>
+
+</body>
+</html>

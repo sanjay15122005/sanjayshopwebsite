@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        a:hover {
+            background: #1d6fa5;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+let token = localStorage.getItem("adminToken");
+if (!token) {
+    window.location.href = "admin-login.html";
+}
+</script>
+
+
+    <div class="box">
+        <h1>Welcome, Admin!</h1>
+        <p>You have successfully logged in.</p>
+
+        <a href="index.html">Go Back to Home</a>
+    </div>
+<a href="admin-products-games.html">Manage Game Products</a>
+<a href="admin-products-milk.html">Manage Milk Products</a>
+
+</body>
+</html>

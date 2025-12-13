@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CK Gamers Zone - Product Admin</title>
+</head>
+<body>
+
+<h1>Game Products</h1>
+
+<div>
+    <h3>Add Game Product</h3>
+    <input id="name" type="text" placeholder="Product Name"><br>
+    <input id="price" type="number" placeholder="Price"><br>
+    <input id="image" type="text" placeholder="Image URL"><br>
+
+    <button onclick="addProduct()">Add Game Product</button>
+</div>
+
+<h2>All Game Products</h2>
+<div id="productList"></div>
+
+<script>
+function getToken() {
+   return localStorage.getItem("adminToken");
+}
+
+async function addProduct() {
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const image = document.getElementById("image").value;
+
+    await fetch("http://localhost:5000/add-product", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": getToken()
+        },
+        body: JSON.stringify({
+            name, price, image,
+            category: "game"
+        })
+    });
+
+    loadProducts();
+}
+
+async function loadProducts() {
+    const res = await fetch("http://localhost:5000/products", {
+        headers: { "Authorization": getToken() }
+    });
+    const data = await res.json();
+
+    let html = "";
+    data.filter(p => p.category === "game").forEach(p => {
+        html += `
+        <div>
+            <img src="${p.image}" width="150"><br>
+            <b>${p.name}</b><br>
+            ₹${p.price}<br>
+
+            <button onclick="deleteProduct('${p._id}')">Delete</button>
+        </div><br>
+        `;
+    });
+
+    document.getElementById("productList").innerHTML = html;
+}
+
+async function deleteProduct(id) {
+    await fetch("http://localhost:5000/delete-product", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": getToken()
+        },
+        body: JSON.stringify({ id })
+    });
+
+    loadProducts();
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>

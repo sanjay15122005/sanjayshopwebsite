@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Dashboard</title>
+    <style>
+        body { font-family: Arial; padding: 30px; background: #f4f4f4; }
+        h1 { text-align: center; }
+
+        .box {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .product {
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            width: 300px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .product button {
+            background: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Product Management</h1>
+
+<div class="box">
+    <h3>Add Product</h3>
+    <input id="pname" type="text" placeholder="Product Name">
+    <input id="pprice" type="number" placeholder="Price">
+    <input id="pimg" type="text" placeholder="Image URL">
+    <input id="pcat" type="text" placeholder="Category (game or milk)">
+    <button onclick="addProduct()">Add Product</button>
+</div>
+
+<h2>All Products</h2>
+<div id="productList"></div>
+
+<script>
+
+// 🔒 REDIRECT IF NOT LOGGED IN
+if (!localStorage.getItem("adminToken")) {
+    window.location.href = "admin-login.html";
+}
+
+// Add Product
+async function addProduct() {
+    const name = document.getElementById("pname").value;
+    const price = document.getElementById("pprice").value;
+    const image = document.getElementById("pimg").value;
+    const category = document.getElementById("pcat").value;
+
+    await fetch("http://localhost:5000/add-product", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("adminToken")
+        },
+        body: JSON.stringify({ name, price, image, category })
+    });
+
+    loadProducts();
+}
+
+// Load Products
+async function loadProducts() {
+    const res = await fetch("http://localhost:5000/products", {
+        headers: {
+            "Authorization": localStorage.getItem("adminToken")
+        }
+    });
+    
+    const data = await res.json();
+    let html = "";
+
+    data.forEach(item => {
+        html += `
+        <div class="product">
+            <img src="${item.image}" width="200"><br>
+            <b>${item.name}</b><br>
+            ₹${item.price}<br>
+            <small>${item.category}</small><br>
+
+            <button onclick="deleteProduct('${item._id}')">Delete</button>
+        </div>
+        `;
+    });
+
+    document.getElementById("productList").innerHTML = html;
+}
+
+// Delete Product
+async function deleteProduct(id) {
+    await fetch("http://localhost:5000/delete-product", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("adminToken")
+        },
+        body: JSON.stringify({ id })
+    });
+
+    loadProducts();
+}
+
+loadProducts();
+
+let editID = "";
+
+// Edit Product
+function editProduct(id, name, price, image, category) {
+    editID = id;
+    document.getElementById("editName").value = name;
+    document.getElementById("editPrice").value = price;
+    document.getElementById("editImage").value = image;
+    document.getElementById("editCat").value = category;
+    document.getElementById("editBox").style.display = "block";
+}
+
+// Save Edited Product
+async function saveEdit() {
+    let name = document.getElementById("editName").value;
+    let price = document.getElementById("editPrice").value;
+    let image = document.getElementById("editImage").value;
+    let category = document.getElementById("editCat").value;
+
+    await fetch("http://localhost:5000/update-product", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("adminToken")
+        },
+        body: JSON.stringify({ id: editID, name, price, image, category })
+    });
+
+    document.getElementById("editBox").style.display = "none";
+    loadProducts();
+}
+
+</script>
+
+<div id="editBox" style="display:none; background:white; padding:20px; width:350px; margin:20px auto; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2);">
+    <h3>Edit Product</h3>
+    <input id="editName" type="text">
+    <input id="editPrice" type="number">
+    <input id="editImage" type="text">
+    <input id="editCat" type="text">
+    <button onclick="saveEdit()">Save</button>
+</div>
+
+</body>
+</html>

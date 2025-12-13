@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sanjay Agencies | Home</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial';
+            background: #f4f4f4;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #2c3e50;
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 340px;
+            background: url('images/banner.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            animation: fadeIn 1.2s;
+        }
+
+        /* SECTION TITLE */
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* SHOP CARDS */
+        .shops {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .shop-card {
+            background: white;
+            width: 280px;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .shop-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .shop-card img {
+            width: 230px;
+            border-radius: 10px;
+        }
+
+        .shop-card button {
+            padding: 10px 20px;
+            background: #3498db;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 18px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .shop-card button:hover {
+            transform: scale(1.07);
+            background: #1d6fa5;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        .footer p { margin: 6px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* SLIDESHOW */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 350px;
+}
+
+.slide img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.slide-text {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.7);
+    font-weight: bold;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 12px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    transform: translateY(-50%);
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+.prev:hover, .next:hover {
+    color: #3498db;
+}
+
+.fade {
+    animation: fadeEffect 1.2s;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+.prev, .next {
+    z-index: 10;
+}
+.slide {
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+    </style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Sanjay Agencies</div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="ckgamerszone.html">Game Center</a>
+        <a href="sanjayagencies.html">Milk Shop</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<!-- HERO SECTION -->
+<!-- SLIDESHOW HERO SECTION -->
+<div class="slideshow-container">
+
+    <div class="slide fade">
+        <img src="images/banner.jpg">
+        <div class="slide-text">Welcome to Sanjay Agencies</div>
+    </div>
+
+    <div class="slide fade">
+        <img src="images/vka-milk-logo (1).png">
+        <div class="slide-text">Fresh Milk & Dairy Products</div>
+    </div>
+
+    <div class="slide fade">
+        <img src="images/ck logo.png">
+        <div class="slide-text">Play PS4 & PS5 at CK Gamers Zone</div>
+    </div>
+
+    <!-- Manual Controls -->
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+</div>
+
+
+<!-- SHOPS SECTION -->
+<h2>Our Services</h2>
+
+<div class="shops">
+
+    <!-- GAME SHOP CARD -->
+    <div class="shop-card fade-in">
+        <img src="images/ck logo.png" alt="">
+        <h3>CK Gamers Zone</h3>
+        <p>All PS4 & PS5 Games · Multiplayer · Single Player</p>
+        <button onclick="window.location.href='ckgamerszone.html'">Visit</button>
+    </div>
+
+    <!-- MILK SHOP CARD -->
+    <div class="shop-card fade-in">
+        <img src="images/milk image.png" alt="">
+        <h3>Fresh Milk & Dairy</h3>
+        <p>Fresh Milk · Curd · Paneer · Ghee & more</p>
+        <button onclick="window.location.href='sanjayagencies.html'">Visit</button>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <h3>Sanjay Agencies</h3>
+    <p>Kumbakonam Main Road, Pandanallur</p>
+    <p>Phone: 9965073322</p>
+    <p>Email: chandru1976ni@gmail.com</p>
+    <p style="opacity:0.7">© 2025 Sanjay Agencies. All rights reserved.</p>
+</div>
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 }
+
+    slides[slideIndex - 1].classList.add("active");
+
+
+    setTimeout(showSlides, 4000);
+}
+
+function plusSlides(n) {
+    slideIndex += n - 1;
+    showSlides();
+}
+</script>
+
+
+</body>
+</html>
+

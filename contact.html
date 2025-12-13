@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - Sanjay Agencies</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f4f4;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #2c3e50;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        /* Contact Card */
+        .contact-box {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-box input,
+        .contact-box textarea {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .contact-box button {
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .contact-box button:hover {
+            background: #1d6fa5;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer h3 {
+            margin: 5px 0;
+            font-size: 22px;
+        }
+
+        .footer p {
+            margin: 4px 0;
+            font-size: 16px;
+        }
+
+        .copy {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        /* FADE IN ANIMATION */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* BUTTON HOVER ANIMATION */
+.btn, .back, button {
+    transition: transform 0.2s ease, background 0.2s;
+}
+
+.btn:hover, .back:hover, button:hover {
+    transform: scale(1.05);
+}
+
+/* PRODUCT CARD HOVER */
+.product {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* INPUT FOCUS ANIMATION */
+input:focus, textarea:focus {
+    outline: none;
+    border: 2px solid #3498db;
+    box-shadow: 0 0 10px rgba(52,152,219,0.4);
+    transition: 0.2s;
+}
+
+/* SMOOTH PAGE SCROLL */
+html {
+    scroll-behavior: smooth;
+}
+/* PAGE LOADER */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 6px solid #ddd;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* HIDE PAGE CONTENT UNTIL LOADED */
+.page-content {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.5s;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <div id="loader">
+    <div class="spinner"></div>
+</div>
+<div class="page-content">
+    
+
+
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">Sanjay Agencies</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="ckgamerszone.html">ck gamers zone</a>
+            <a href="sanjayagencies.html">sanjay agencies</a>
+            
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="container fade-in">
+        <h1>Contact Us</h1>
+        <div class="contact-box fade-in">
+            <h2>Send us a Message</h2>
+
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <textarea rows="4" placeholder="Your Message"></textarea>
+
+            <button>Send Message</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <h3>Sanjay Agencies</h3>
+        <p>Kumbakonam Main Road, Pandanallur</p>
+        <p>Phone: 9956073322</p>
+        <p>Email: chandru1976ni@gmail.com</p>
+        <p class="copy">© 2025 Sanjay Agencies. All rights reserved.</p>
+    </footer>
+    
+</div>
+<script>
+    window.onload = function() {
+        document.getElementById("loader").style.display = "none";
+    }
+</script>
+
+
+</body>
+</html>
