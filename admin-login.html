@@ -70,33 +70,36 @@
         <input type="text" id="username" placeholder="Enter Username">
         <input type="password" id="password" placeholder="Enter Password">
 
-        <button onclick="login()">Login</button>
+        <button onclick="loginAdmin()">Login</button>
+
 
         <p id="errorMessage" class="error"></p>
     </div>
 
 <script>
-async function login() {
-    let user = document.getElementById("username").value;
-    let pass = document.getElementById("password").value;
 
-    let response = await fetch("https://sanjayshop-backend.onrender.com/login", {
+async function loginAdmin() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("https://sanjayshop-backend.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: user, password: pass })
+        body: JSON.stringify({ username, password })
     });
 
-    let result = await response.json();
+    const data = await res.json();
 
-    if (result.success) {
-        // Save token
-        localStorage.setItem("adminToken", result.token);
+    if (data.success) {
+        alert("Login Successful!");
+        localStorage.setItem("token", data.token);
         window.location.href = "admin-dashboard.html";
     } else {
-        document.getElementById("errorMessage").innerText = result.message;
+        document.getElementById("errorMessage").innerText = data.message;
     }
-    
 }
+
+
 </script>
 
 
