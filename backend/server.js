@@ -6,7 +6,11 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(bodyParser.json());
 
 // ------------------ CONNECT TO MONGODB ------------------
@@ -20,6 +24,7 @@ const AdminSchema = new mongoose.Schema({
     username: String,
     password: String   // hashed password
 });
+const Admin = mongoose.model("Admin", AdminSchema);
 
 
 
@@ -102,6 +107,17 @@ app.post("/update-product", verifyToken, async (req, res) => {
 
     res.json({ success: true, message: "Product updated!" });
 });
+// Root route for Render health check
+app.get("/", (req, res) => {
+    res.send("Backend is running!");
+});
+
+// ------------------ START SERVER ------------------
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log("Server running on port", PORT);
+});
+
  
 
 
