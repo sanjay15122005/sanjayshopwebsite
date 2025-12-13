@@ -29,7 +29,7 @@ async function addProduct() {
     const price = document.getElementById("price").value;
     const image = document.getElementById("image").value;
 
-    await fetch("http://localhost:5000/add-product", {
+    await fetch("https://sanjayshop-backend.onrender.com/add-product", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -45,7 +45,7 @@ async function addProduct() {
 }
 
 async function loadProducts() {
-    const res = await fetch("http://localhost:5000/products", {
+    const res = await fetch("https://sanjayshop-backend.onrender.com/products", {
         headers: { "Authorization": getToken() }
     });
     const data = await res.json();
@@ -67,7 +67,7 @@ async function loadProducts() {
 }
 
 async function deleteProduct(id) {
-    await fetch("http://localhost:5000/delete-product", {
+    await fetch("https://sanjayshop-backend.onrender.com/delete-product", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
