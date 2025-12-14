@@ -20,66 +20,51 @@
 <div id="productList"></div>
 
 <script>
-function getToken() {
-   return localStorage.getItem("adminToken");
-}
-
-async function addProduct() {
-    const name = document.getElementById("name").value;
-    const price = document.getElementById("price").value;
-    const image = document.getElementById("image").value;
-
-    await fetch("https://sanjayshop-backend.onrender.com/add-product", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": getToken()
-        },
-        body: JSON.stringify({
-            name, price, image,
-            category: "game"
-        })
-    });
-
-    loadProducts();
-}
-
+<script>
 async function loadProducts() {
-    const res = await fetch("https://sanjayshop-backend.onrender.com/products", {
-        headers: { "Authorization": getToken() }
-    });
-    const data = await res.json();
+  const token = localStorage.getItem("token");
 
-    let html = "";
-    data.filter(p => p.category === "game").forEach(p => {
-        html += `
-        <div>
-            <img src="${p.image}" width="150"><br>
-            <b>${p.name}</b><br>
-            ₹${p.price}<br>
+  if (!token) {
+    alert("Please login again");
+    window.location.href = "admin-login.html";
+    return;
+  }
 
-            <button onclick="deleteProduct('${p._id}')">Delete</button>
-        </div><br>
-        `;
-    });
+  const res = await fetch("https://sanjayshop-backend.onrender.com/products", {
+    headers: {
+      "Authorization": token
+    }
+  });
 
-    document.getElementById("productList").innerHTML = html;
-}
+  const data = await res.json();
 
-async function deleteProduct(id) {
-    await fetch("https://sanjayshop-backend.onrender.com/delete-product", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": getToken()
-        },
-        body: JSON.stringify({ id })
-    });
+  if (!Array.isArray(data)) {
+    console.error("Products API error:", data);
+    alert("Failed to load products");
+    return;
+  }
 
-    loadProducts();
+  const games = data.filter(
+    p => p.category && p.category.toLowerCase() === "game"
+  );
+
+  const list = document.getElementById("products");
+  list.innerHTML = "";
+
+  games.forEach(p => {
+    list.innerHTML += `
+      <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <img src="${p.image}" width="120"/>
+      </div>
+    `;
+  });
 }
 
 loadProducts();
+</script>
+
 </script>
 
 </body>
