@@ -19,78 +19,51 @@
 <h2>All Game Products</h2>
 <div id="productList"></div>
 
+
 <script>
-async function addProduct() {
-  const name = document.getElementById("name").value;
-  const price = document.getElementById("price").value;
-  const image = document.getElementById("image").value;
-
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("Please login again");
-    window.location.href = "admin-login.html";
-    return;
-  }
-
-  const res = await fetch("https://sanjayshop-backend.onrender.com/add-product", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      price,
-      image,
-      category: "game"
-    })
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    alert("Product added");
-    loadProducts();
-  } else {
-    alert(data.message);
-  }
-}
-
+// ADD PRODUCT
 async function loadProducts() {
-  const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
-  const res = await fetch("https://sanjayshop-backend.onrender.com/products", {
-    headers: {
-      "Authorization": token
+      if (!token) {
+        alert("Please login again");
+        window.location.href = "admin-login.html";
+        return;
+      }
+
+      const res = await fetch("https://sanjayshop-backend.onrender.com/products", {
+        headers: {
+          "Authorization": token
+        }
+      });
+
+      const data = await res.json();
+
+      if (!Array.isArray(data)) {
+        console.error("Products API error:", data);
+        alert("Failed to load products");
+        return;
+      }
+
+      const games = data.filter(
+        p => p.category && p.category.toLowerCase() === "game"
+      );
+
+      const list = document.getElementById("products");
+      list.innerHTML = "";
+
+      games.forEach(p => {
+        list.innerHTML += `
+          <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+            <h3>${p.name}</h3>
+            <p>₹${p.price}</p>
+            <img src="${p.image}" width="120"/>
+          </div>
+        `;
+      });
     }
-  });
 
-  const data = await res.json();
-
-  if (!Array.isArray(data)) {
-    console.error(data);
-    return;
-  }
-
-  const games = data.filter(p => p.category === "game");
-
-  const list = document.getElementById("products");
-  list.innerHTML = "";
-
-  games.forEach(p => {
-    list.innerHTML += `
-      <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-        <h3>${p.name}</h3>
-        <p>₹${p.price}</p>
-        <img src="${p.image}" width="120">
-      </div>
-    `;
-  });
-}
-
-loadProducts();
-
-
+    loadProducts();
 </script>
 
 </body>
